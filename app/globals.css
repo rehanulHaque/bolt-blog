@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root{
+    --primary-color: #11082F;
+    --secondary-color: #7B136F;
+    --white-color: #F4EFFC;
+    --blue-color: #3C9EDA;
+}
+
+body{
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+.nav-logo{
+    mix-blend-mode: lighten;
+}
+.app{
+    margin: 0 20%;
+}
+@media screen and (max-width: 1300px) {
+    .app{
+        margin: 0 20%;
+    }
+}
+@media screen and (max-width: 1080px) {
+    .app{
+        margin: 0 15%;
+    }
+}
+@media screen and (max-width: 800px) {
+    .app{
+        margin: 0 10%;
+    }
+}
+@media screen and (max-width: 400px) {
+    .app{
+        margin: 0 10%;
+    }
+}
+@media screen and (max-width: 260px) {
+    .app{
+        margin: 0 0;
+    }
+}
