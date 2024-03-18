@@ -1,8 +1,10 @@
+import { title } from "@/constants/constants";
 import { client, getCategoryFromRef, urlFor } from "@/lib/sanity";
+import { format } from "date-fns";
 import { PortableText } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
-import { FaGreaterThan } from "react-icons/fa";
+import { FaCalendar, FaGreaterThan } from "react-icons/fa";
 export const revalidate = 30;
 
 interface BlogTypes {
@@ -19,7 +21,8 @@ const getBlog = async (slug: string) => {
           title,
           content,
           "imageUrl": titleImage.asset._ref,
-          "category": categoty._ref
+          "category": categoty._ref,
+          _createdAt,
     }[0]`;
   const data = await client.fetch(query);
   return data;
@@ -27,6 +30,7 @@ const getBlog = async (slug: string) => {
 const page = async ({ params }: { params: { slug: string } }) => {
   const blog = await getBlog(params.slug);
   const categoryName = await getCategoryFromRef(blog.category);
+  const formattedDate = format(new Date(blog._createdAt), "LLLL dd, yyyy");
   return (
     <article>
       <div className="flex gap-4 items-center ">
@@ -38,7 +42,7 @@ const page = async ({ params }: { params: { slug: string } }) => {
           className="nav-logo"
         />
         <h1 className="text-3xl font-bold">
-          <Link href="/">Bolt Blog</Link>
+          <Link href="/">{title}</Link>
         </h1>
       </div>
       <h3 className=" text-gray-400 mb-6 mt-4 flex gap-2 items-center text-xs">
@@ -48,7 +52,9 @@ const page = async ({ params }: { params: { slug: string } }) => {
         </span>{" "}
         {categoryName}
       </h3>
-
+      <p className="text-gray-400 capitalize my-3 flex gap-2 items-center">
+        {<FaCalendar/>} {formattedDate}
+      </p>
       <h1 className="text-3xl font-bold">{blog.title}</h1>
       <Image
         src={urlFor(blog.imageUrl).url()}

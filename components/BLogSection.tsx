@@ -1,14 +1,6 @@
 import { client } from "@/lib/sanity";
 import BLogPost from "./BlogPost";
-
-interface BlogDataTypes {
-    title: string;
-    smallDescription: string;
-    imageUrl: string;
-    _createdAt: string;
-    category: string;
-    slug: string;
-}
+import { BlogDataTypes } from "@/types/types";
 
 const getPosts = async () => {
   const query = `*[_type == 'blog'] | order(_createdAt desc) {
@@ -21,6 +13,7 @@ const getPosts = async () => {
   const data = await client.fetch(query);
   return data;
 };
+
 const BLogSection = async() => {
   const data = await getPosts();
   return (
