@@ -1,5 +1,6 @@
-import { title } from "@/constants/constants";
+import { socialUrls, title } from "@/constants/constants";
 import { client, getCategoryFromRef, urlFor } from "@/lib/sanity";
+import { SoclialType } from "@/types/types";
 import { format } from "date-fns";
 import { PortableText } from "next-sanity";
 import Image from "next/image";
@@ -66,6 +67,18 @@ const page = async ({ params }: { params: { slug: string } }) => {
       <div className="mt-10 prose prose-sm lg:prose-xl md:prose-lg prose-blue prose-invert ">
         <PortableText value={blog.content} />
       </div>
+      <div className="flex items-center justify-center gap-4 my-4 text-2xl">
+          {socialUrls.map((url: SoclialType) => (
+            <Link
+              key={url.idx}
+              href={url.url}
+              target="_blank"
+              className="hover:text-gray-400 transition-all"
+            >
+              {<url.icon/>}
+            </Link>
+          ))}
+        </div>
     </article>
   );
 };
